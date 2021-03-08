@@ -2,26 +2,27 @@
 const db = require("../../data/dbConfig")
 
 const getTasks = async () => {
-    const tasks = await db('tasks')
-        .select("*")
-    return tasks.map(task => {
-        return {
-            ...task,
-            task_completed: boolean(task.task_completed)
+    const allTasks = await db('tasks as t')
+        .join("projects as p", "t.project_id", "p.project_id")
+        .select(
+            "t.task_id",
+            "t.task_description",
+            "t.task_notes",
+            "t.task_completed",
+            "p.project_name",
+            "p.project_description"
+        )
+    return allTasks.map(task => {
+        if (task.task_completed === 1) {
+            task.task_completed === true
+        } else {
+            task.task_completed = false
         }
+        return allTasks
     })
 }
 
 const boolean = (num) => {
-    if (num === 0 || null) {
-        return false
-    }
-    if (num === 1) {
-        return true
-    }
-}
-
-const integer = (num) => {
     if (num === true || num === 1 || num === "1") {
         return 1
     } else {
@@ -34,7 +35,7 @@ const newTask = async (task) => {
         .insert({
             task_description: task.task_description,
             task_notes: task.task_notes,
-            task_completed: integer(task.task_completed),
+            task_completed: boolean(task.task_completed),
             project_id: task.project_id
         })
 
@@ -48,27 +49,6 @@ const newTask = async (task) => {
         task_completed: boolean(task.task_completed)
     }
 }
-
-// const getTasks = async () => {
-//     const tasks = await db('tasks as t')
-//         .join("projects as p", "t.project_id", "p.project_id")
-//         .select(
-//             "t.task_id",
-//             "t.task_description",
-//             "t.task_notes",
-//             "t.task_completed",
-//             "p.project_name",
-//             "p.project_description"
-//         )
-//     return tasks.map(task => {
-//         if (task.task_completed === 1) {
-//             task.task_completed === true
-//         } else {
-//             task.task_completed = false
-//         }
-//         return tasks
-//     })
-// }
 
 module.exports = {
     getTasks,

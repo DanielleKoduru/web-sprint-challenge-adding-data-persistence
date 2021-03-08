@@ -2,26 +2,19 @@
 const db = require("../../data/dbConfig")
 
 const getProject = async () => {
-    const projects = await db('projects')
+    const allProjects = await db('projects')
         .select("*")
-    return projects.map(project => {
-        return {
-            ...project,
-            project_completed: boolean(project.project_completed)
+    return allProjects.map(project => {
+        if (project.project_completed ===1) {
+            project.project_completed = true
+        } else {
+            project.project_completed = false
         }
+        return allProjects
     })
 }
 
 const boolean = (num) => {
-    if (num === 0 || null) {
-        return false
-    }
-    if (num === 1) {
-        return true
-    }
-}
-
-const integer = (num) => {
     if (num === true || num === 1 || num === "1") {
         return 1
     } else {
@@ -34,7 +27,7 @@ const addProject = async(project) => {
         .insert({
             project_name: project.project_name,
             project_description: project.task_description,
-            project_completed: integer(project.task_completed)
+            project_completed: boolean(project.task_completed)
         })
 
     let projects = await db('projects')
