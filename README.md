@@ -112,10 +112,10 @@ After finishing your required elements, you can push your work further. These go
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. Explain the difference between Relational Databases and SQL.
-SQL databases are relational databases as they have a table based structure and predefined schema
+<!-- SQL databases are relational databases as they have a table based structure and predefined schema -->
 2. Why do tables need a Primary Key?
-to insure row level accesability and to be able to difne each row so they are unique
+<!-- to insure row level accesability and to be able to difne each row so they are unique -->
 3. What is the name given to a table column that references the Primary Key on another table?
-Foriegn Key
+<!-- Foriegn Key -->
 4. What do we need in order to have a _many to many_ relationship between two tables?
-A table of primary keys called a join table
+<!-- A table of primary keys called a join table -->
