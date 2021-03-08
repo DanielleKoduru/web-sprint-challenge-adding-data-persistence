@@ -1,27 +1,22 @@
 const db = require("../../data/dbConfig")
 
-const getTasks = () => {
-    return db("tasks")
-        .select("*")
+const getTasks = async () => {
+    const allTasks = await db('tasks as t')
+        .join("projects as p", "t.project_id", "p.project_id")
+        .select(
+            "t.task_completed",
+            "t.task_description",
+            "t.task_notes",
+        )
+    return allTasks.map(task => {
+        if (task.task_completed === 1) {
+            task.task_completed === true
+        } else {
+            task.task_completed = false
+        }
+        return allTasks
+    })
 }
-
-// const getTasks = async () => {
-//     const allTasks = await db('tasks as t')
-//         .join("projects as p", "t.project_id", "p.project_id")
-//         .select(
-//             "t.task_completed",
-//             "t.task_description",
-//             "t.task_notes",
-//         )
-//     return allTasks.map(task => {
-//         if (task.task_completed === 1) {
-//             task.task_completed === true
-//         } else {
-//             task.task_completed = false
-//         }
-//         return allTasks
-//     })
-// }
 
 const boolean = (num) => {
     if (num === true || num === 1 || num === "1") {
