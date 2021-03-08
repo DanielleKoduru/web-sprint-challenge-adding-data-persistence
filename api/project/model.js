@@ -1,13 +1,8 @@
 const db = require("../../data/dbConfig")
 
 const getProject = async () => {
-    const allProjects = await db('projects as p')
-    .join("tasks as t", "t.project_id", "p.project_id")
-        .select(
-            "project_completed",
-            "project_description",
-            "project_name"
-        )
+    const allProjects = await db('projects')
+        .select("*")
     return allProjects.map(project => {
         if (project.project_completed ===1) {
             project.project_completed = true
