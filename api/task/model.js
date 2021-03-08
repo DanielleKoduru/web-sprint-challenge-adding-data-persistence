@@ -10,12 +10,20 @@ const boolean = (num) => {
     }
 }
 
+const integer = (num) => {
+    if (num === true || num === 1 || num === "1") {
+        return 1
+    } else {
+        return 0
+    }
+}
+
 const newTask = async (task) => {
     const [id] = await db('tasks')
         .insert({
             task_description: task.task_description,
             task_notes: task.task_notes,
-            task_completed: boolean(task.task_completed),
+            task_completed: integer(task.task_completed),
             project_id: task.project_id
         })
 
