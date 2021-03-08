@@ -1,13 +1,13 @@
 // build your `Resource` model here
-const db = require("../data/dbConfig")
+const db = require("../../data/dbConfig")
 
-function find() {
+const getResources = () => {
 	return db("resources")
 	.select("*")	
 }
 
-function newResource(resource) {
-    const id = db("resources")
+const addResource = async (resource) => {
+    const [id] = await db("resources")
         .insert({
             resource_name: resource.resource_name,
             resource_description: resource.resource_description,
@@ -19,6 +19,6 @@ function newResource(resource) {
 }
 
 module.exports = {
-	find,
-	newResource,
+    getResources,
+	addResource,
 }
