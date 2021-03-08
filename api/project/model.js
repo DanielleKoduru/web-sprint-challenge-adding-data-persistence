@@ -1,17 +1,8 @@
 // build your `Project` model here
 const db = require("../../data/dbConfig")
 
-const boolean = (num) => {
-    if (num === 0 || null) {
-        return false
-    }
-    if (num === 1) {
-        return true
-    }
-}
-
-function findProjects() {
-    const projects = db('projects')
+const getProject = async () => {
+    const projects = await db('projects')
         .select("*")
     return projects.map(project => {
         return {
@@ -21,11 +12,20 @@ function findProjects() {
     })
 }
 
-function newProject() {
+const boolean = (num) => {
+    if (num === 0 || null) {
+        return false
+    }
+    if (num === 1) {
+        return true
+    }
+}
+
+function addProject() {
 
 }
 
 module.exports = {
-    findProjects,
-    newProject,
+    getProject,
+    addProject,
 }

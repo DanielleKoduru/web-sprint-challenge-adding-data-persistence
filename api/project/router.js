@@ -9,7 +9,7 @@ const router = express.Router()
 //   - Example of response body: `{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}`
 router.post("/", async (req, res, next) => {
 	try {
-		const projects = await project.newProject(req.body)
+		const projects = await project.addProject(req.body)
 		res.status(201).json(projects)
 	} catch(err) {
 		next(err)
@@ -20,9 +20,11 @@ router.post("/", async (req, res, next) => {
 //   - Example of response body: `[{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}]`
 router.get("/", async (req, res, next) => {
 	try {
-        const projects = await project.find()
+        const projects = await project.getProject()
         res.status(200).json(projects)
 	} catch(err) {
 		next(err)
 	}
 })
+
+module.exports = router
